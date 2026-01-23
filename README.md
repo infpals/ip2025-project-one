@@ -1,4 +1,4 @@
-# InfPals 2025/26 - Project One - Battleships
+# InfPals 2025/26 - Battleships
 
 ## Details
 
