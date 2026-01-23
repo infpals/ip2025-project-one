@@ -1,4 +1,4 @@
-from util import *
+from scripts.util import *
 
 class Ship:
     def __init__(self, id: int, shape: list[str]):

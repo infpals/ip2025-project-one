@@ -1,6 +1,6 @@
-from util import *
-from board import Board
-from ship import Ship
+from scripts.util import *
+from scripts.board import Board
+from scripts.ship import Ship
 
 
 class Player:
@@ -11,13 +11,15 @@ class Player:
 
     async def new(self):
         self.board = Board()
-        confirmed = False
-        placed = 0
         ships = []
         for k in self.ship_data:
             for _ in range(int(self.ship_data[k]['count'])):
                 ships.append(Ship(int(k), self.ship_data[k]['shape']))
+        await self.ask_input(ships)
 
+    async def ask_input(self, ships: list[Ship]) -> None:
+        confirmed = False
+        placed = 0
         while not confirmed:
             print(f"\nYou have placed {placed} ships out of {len(ships)}.")
             option = await getIntegerInput(prompt_new)

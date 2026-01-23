@@ -1,5 +1,5 @@
-from util import *
-from ship import Ship
+from scripts.util import *
+from scripts.ship import Ship
 
 
 class Board:
