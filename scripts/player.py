@@ -3,7 +3,7 @@ from scripts.board import Board
 from scripts.ship import Ship
 
 
-class Player:
+class PlayerOld:
     def __init__(self, name: str, ship_data: dict) -> None:
         self.name = name
         self.ship_data = ship_data
@@ -40,8 +40,8 @@ class Player:
                         continue
                     if rotate:
                         ship.rotate()
-                    self.board.addShip(ship, await getPosInput())
-                    placed += 1
+                    if self.board.addShip(ship, await getPosInput()):
+                        placed += 1
                 case 2:  # Move a ship
                     ship = self.board.getAtPos(await getPosInput())
                     if ship is None:
@@ -65,3 +65,14 @@ class Player:
                         print("You have not placed all ships yet.")
                     else:
                         confirmed = True
+
+
+class Player:
+    def __init__(self, name, ship_data):
+        self.name = name
+        self.board = Board()
+        self.ships: list[Ship] = []
+
+        for k in ship_data:
+            for _ in range(ship_data[k]["count"]):
+                self.ships.append(Ship(int(k), ship_data[k]["shape"]))

@@ -1,7 +1,1 @@
-# Putting it all together
-from scripts import *
-
-
-class Game:
-    def __init__(self):
-        pass
+# This session was the same as session 1 hence would be identical to main1.py

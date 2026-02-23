@@ -15,6 +15,9 @@
                   <Item>
                     <option name="path" value="session1-background/scripts/shapes.json" />
                   </Item>
+                  <Item>
+                    <option name="path" value="scripts/ships.json" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>

@@ -1,6 +1,6 @@
 from scripts.util import *
 
-class Ship:
+class ShipOld:
     def __init__(self, id: int, shape: list[str]):
         self.id = id
         self.shape = shape
@@ -51,12 +51,48 @@ class Ship:
         return self.spaces <= 0
 
 
-def getTestShip(id: int) -> Ship:
+class Ship:
+    def __init__(self, id: int, shape: list[str]):
+        self.id = id
+        self.shape = shape
+        self.spaces = sum(row.count("#") for row in shape)
+        self.pos = None
+        self.placed = False
+
+    def getShape(self):
+        return [[c for c in row] for row in self.shape]
+
+    def rotate(self):
+        self.shape = ["".join(row) for row in zip(*self.shape[::-1])]
+
+    def getPoss(self, pos_override=None):
+        pos = pos_override if pos_override else self.pos
+        if pos is None:
+            return []
+
+        poss = []
+        for dy, row in enumerate(self.getShape()):
+            for dx, val in enumerate(row):
+                if val == "#":
+                    poss.append((pos[0] + dx, pos[1] + dy))
+        return poss
+
+    def isAtPos(self, pos):
+        return pos in self.getPoss()
+
+    def hit(self):
+        self.spaces -= 1
+
+    def isDead(self):
+        return self.spaces <= 0
+
+
+def getTestShip(id: int) -> ShipOld:
     if 'json' not in locals() and 'json' not in globals():
         import json
     with open("ships.json") as f:
         ships = json.load(f)
-    return Ship(id, ships[str(id)]["shape"])
+    return ShipOld(id, ships[str(id)]["shape"])
 
 if __name__ == '__main__':
     for i in range(1, 5):
